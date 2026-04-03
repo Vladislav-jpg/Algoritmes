@@ -1,4 +1,4 @@
-package org.example;
+package algFind;
 import java.util.Random;
 import java.util.Arrays;
 
