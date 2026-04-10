@@ -13,7 +13,7 @@ public class GnomeSort {
             for (int rep = 0; rep < iterations; rep++){
                 int[] array = new int[count];
                 for (int i = 0; i < count; i++){
-                    array[i] = random.nextInt(100);
+                    array[i] = random.nextInt();
                 }
                 long start = System.nanoTime();
                 gnomeSort(array);

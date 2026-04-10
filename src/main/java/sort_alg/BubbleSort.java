@@ -10,7 +10,7 @@ public class BubbleSort {
             long totaltime = 0;
             for (int rep = 0; rep < iterations; rep++) {
                 for (int i = 0; i < count; i++) {
-                    arr[i] = random.nextInt(100);
+                    arr[i] = random.nextInt();
                 }
                 long start = System.nanoTime();
                 bubbleSort(arr);
