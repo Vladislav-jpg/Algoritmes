@@ -2,6 +2,8 @@ package new_sort_alg;
 
 import java.util.Random;
 
+import static new_sort_alg.ShellSort.generate_random_array;
+
 public class CombSort {
     public static long C = 0; // Сравнения
     public static long M = 0; // Пересылки
@@ -17,14 +19,15 @@ public class CombSort {
 
         System.out.println("Тест сортировки расчёской");
 
-
-        for (double alpha = 1.1; alpha <= 2.9; alpha += 0.01) {
+        for (double alpha = 1.1; alpha <= 2.4; alpha += 0.01) {
             C = 0;
             M = 0;
             int[] copyArr = original_array.clone();
+            for (int iterations = 0; iterations<1000; iterations++ ) {
+                combSort(copyArr, alpha);
+                generate_random_array(copyArr);
 
-            combSort(copyArr, alpha);
-
+            }
             System.out.println(alpha + "  " + (C + M));
         }
 
@@ -36,7 +39,7 @@ public class CombSort {
         boolean swapped = true;
 
         while (gap > 1 || swapped) {
-            // Уменьшаем шаг
+            // Уменьшение шага
             gap = (int) (gap / alpha);
             if (gap < 1) gap = 1;
 
@@ -44,11 +47,11 @@ public class CombSort {
             for (int i = 0; i < n - gap; i++) {
                 C++;
                 if (arr[i] > arr[i + gap]) {
-                    // Обмен элементами
+                    // Обмен элементов
                     int temp = arr[i];
                     arr[i] = arr[i + gap];
                     arr[i + gap] = temp;
-                    M += 3; // Стандартный swap = 3 пересылки
+                    M += 3; // swap = 3 пересылки
                     swapped = true;
                 }
             }
