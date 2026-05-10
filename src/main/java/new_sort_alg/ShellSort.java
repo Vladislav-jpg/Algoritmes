@@ -56,11 +56,10 @@ public class ShellSort {
     }
     public static void shellsort(int[] arr, double alpha) {
         int n = arr.length;
-
         int gap = (int)(n / alpha);
+        if (gap < 1) gap = 1;
 
-        // Shell (gap > 1)
-        while (gap > 1) {
+        while (gap >= 1) {
             for (int i = gap; i < n; i++) {
                 int temp = arr[i];
                 M++;
@@ -74,36 +73,15 @@ public class ShellSort {
                     j -= gap;
                 }
 
-                if (j >= gap) C++; // учёт последнего сравнения
+                if (j >= gap) C++;
 
                 arr[j] = temp;
                 M++;
             }
 
+            if (gap == 1) break;
             gap = (int)(gap / alpha);
             if (gap < 1) gap = 1;
-        }
-
-        // вставки
-        gap = 1;
-
-        for (int i = gap; i < n; i++) {
-            int temp = arr[i];
-            M++;
-
-            int j = i;
-
-            while (j >= gap && arr[j - gap] > temp) {
-                C++;
-                arr[j] = arr[j - gap];
-                M++;
-                j -= gap;
-            }
-
-            if (j >= gap) C++;
-
-            arr[j] = temp;
-            M++;
         }
     }
 }
