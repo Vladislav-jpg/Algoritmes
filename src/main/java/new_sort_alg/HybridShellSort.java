@@ -12,7 +12,10 @@ public class HybridShellSort {
         for (int size = 100000; size < 100000000; size+= 100000) {
             for (int iteraions =0; iteraions < 100; iteraions++) {
                 int[] arr = new int[size];
-                generate_random_array(arr);
+                Random rand = new Random();
+                for (int i = 0; i < arr.length; i++) {
+                    arr[i] = rand.nextInt(10000);
+                }
                 hybridShellSort(arr, alpha);
             }
             System.out.println(size +"    " + (C+M));

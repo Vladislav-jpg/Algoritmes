@@ -3,34 +3,42 @@ package part5;
 import java.util.Arrays;
 import java.util.Random;
 
-public class QuckSort {
-    public static long comparisons = 0;
-    public static long moves = 0;
-
+public class MyQsort_vs_libQsort {
     public static void main(String[] args) {
-        System.out.println("Размер" + "    " + "Сумма сравнений" +"    "+ "Сумма пересылок");
-        for (int size = 1000; size < 10000; size+= 1000) {
-            for (int iteraions =0; iteraions < 100; iteraions++) {
-                int[] arr = new int[size];
+        System.out.println("count" + "    " + "average time My sort" + "     " + "average time lib");
+        for (int count = 100000; count < 10000000; count += 100000){
+            int[] arr = new int[count];
+            long totaltimemy = 0;
+            long totaltimelib = 0;
+            for (int iterations = 0; iterations < 10; iterations ++){
                 Random rand = new Random();
                 for (int i = 0; i < arr.length; i++) {
                     arr[i] = rand.nextInt(10000);
                 }
-                quickSort(arr, 0, arr.length - 1);
+                int[] copyarr = Arrays.copyOf(arr, arr.length);
+                long start1 = System.nanoTime();
+                Arrays.sort(copyarr);
+                totaltimelib += System.nanoTime() - start1;
+
+                long start2 = System.nanoTime();
+                myqsort(arr, 0, arr.length-1);
+                totaltimemy += System.nanoTime() - start2;
+
             }
-            System.out.println(size +"    " + comparisons +"    "+ moves);
-            moves = 0;
-            comparisons = 0;
+            System.out.println(count + "    " + totaltimemy /10 + "     " + totaltimelib/10);
+
+
         }
+
     }
 
-    public static void quickSort(int[] array, int from, int to){
+
+    public static void myqsort(int[] array, int from, int to) {
         if (from < to){
             int divideIndex = partition(array, from, to);
-            quickSort(array, from, divideIndex-1);
-            quickSort(array, divideIndex, to);
+            myqsort(array, from, divideIndex-1);
+            myqsort(array, divideIndex, to);
         }
-
     }
     private static int partition(int[] array, int from, int to){
         int rightIndex = to;
@@ -42,27 +50,27 @@ public class QuckSort {
         while (leftIndex <= rightIndex) {
 
             while (array[leftIndex] < pivot) {
-                comparisons ++;
+
                 leftIndex++;
 
             }
-            comparisons ++;
+            
 
             while (array[rightIndex] > pivot) {
-                comparisons ++;
+
                 rightIndex--;
             }
             if (leftIndex <= rightIndex) {
                 int temp = array[leftIndex];
                 array[leftIndex] = array[rightIndex];
                 array[rightIndex] = temp;
-                moves +=3;
 
 
                 leftIndex++;
                 rightIndex--;
             }
         }
-    return leftIndex;
+        return leftIndex;
     }
 }
+

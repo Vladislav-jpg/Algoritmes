@@ -51,7 +51,7 @@ public class CombSort {
                     int temp = arr[i];
                     arr[i] = arr[i + gap];
                     arr[i + gap] = temp;
-                    M += 3; // swap = 3 пересылки
+                    M += 3;
                     swapped = true;
                 }
             }

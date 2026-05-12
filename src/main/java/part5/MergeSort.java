@@ -1,13 +1,24 @@
 package part5;
-
-import java.util.Arrays;
+import java.util.Random;
 
 public class MergeSort {
+    public static long comparisons = 0;
+    public static long moves = 0;
     public static void main(String[] args) {
-        System.out.println("Merge Sort");
-        int[] array = new int[]{5, 3, 2, 77, 314, 124};
-        mergeSort(array);
-        System.out.println(Arrays.toString(array));
+        System.out.println("Размер" + "    " + "Сумма сравнений" +"    "+ "Сумма пересылок");
+        for (int size = 100000; size < 1000000000; size+= 100000) {
+            for (int iteraions =0; iteraions < 100; iteraions++) {
+                int[] arr = new int[size];
+                Random rand = new Random();
+                for (int i = 0; i < arr.length; i++) {
+                    arr[i] = rand.nextInt(10000);
+                }
+                mergeSort(arr);
+            }
+            System.out.println(size +"    " + comparisons +"          "+ moves);
+            moves = 0;
+            comparisons = 0;
+        }
     }
     public static void mergeSort(int[] array) {
         if (array.length <= 1) return;
@@ -19,10 +30,12 @@ public class MergeSort {
 
         for (int i = 0; i < mid; i++) {
             left[i] = array[i];
+            moves++;
         }
 
         for (int i = mid; i<array.length; i++) {
             right[i - mid] = array[i];
+            moves++;
         }
 
         mergeSort(left);
@@ -36,26 +49,29 @@ public class MergeSort {
         int k = 0; // main array
 
         while (i < left.length && j < right.length) {
+            comparisons++;
             if (left[i] <= right[j]) {
                 array[k] = left[i];
                 i++;
-                k++;
             }
             else {
                 array[k] = right[j];
                 j++;
-                k++;
             }
+            k++;
+            moves++;
         }
         while (i < left.length) {
             array[k] = left[i];
             i++;
             k++;
+            moves++;
         }
         while (j < right.length) {
             array[k] = right[j];
             j++;
             k++;
+            moves++;
         }
     }
 }
