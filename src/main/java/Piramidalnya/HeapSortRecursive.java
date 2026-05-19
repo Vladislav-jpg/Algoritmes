@@ -8,6 +8,23 @@ public class HeapSortRecursive {
     public static long C = 0; // comparisons
     public static long M = 0; // moves
 
+    public static void main(String[] args) {
+        System.out.println("Heap Sort Recursive");
+        System.out.println("Размер" + "    " + "Сумма сравнений и пересылок" +"    "+ "Среднее время");
+        for (int size = 100000; size < 100000000; size+= 100000){
+            long totaltime = 0;
+            for(int iterations =0; iterations<100; iterations++){
+                int[] arr = new int[size];
+                Random rand = new Random();
+                for (int i = 0; i < arr.length; i++) arr[i] = rand.nextInt(10000);
+                long start = System.nanoTime();
+                heapSort(arr);
+                totaltime +=  System.nanoTime() - start;
+            }
+            System.out.println(size + "     " + (C+M) + "       " + totaltime);
+        }
+    }
+
     public static void heapify(int[] arr, int n, int i) {
 
         int largest = i;
@@ -74,18 +91,4 @@ public class HeapSortRecursive {
         return arr;
     }
 
-    public static void main(String[] args) {
-
-        int size = 20;
-
-        int[] arr = generateArray(size);
-        System.out.println(Arrays.toString(arr));
-
-        heapSort(arr);
-        System.out.println(Arrays.toString(arr));
-
-        System.out.println("Recursive Heap Sort");
-        System.out.println("Comparisons: " + C);
-        System.out.println("Moves: " + M);
-    }
 }

@@ -7,6 +7,22 @@ public class HeapSortIterative {
     public static long C = 0;
     public static long M = 0;
 
+    public static void main(String[] args) {
+        System.out.println("Heap Sort Iterative");
+        System.out.println("Размер" + "    " + "Сумма сравнений и пересылок" +"    "+ "Среднее время");
+        for (int size = 100000; size < 100000000; size+= 100000){
+            long totaltime = 0;
+            for(int iterations =0; iterations<100; iterations++){
+                int[] arr = new int[size];
+                Random rand = new Random();
+                for (int i = 0; i < arr.length; i++) arr[i] = rand.nextInt(10000);
+                long start = System.nanoTime();
+                heapSort(arr);
+                totaltime +=  System.nanoTime() - start;
+            }
+            System.out.println(size + "     " + (C+M) + "       " + totaltime);
+        }
+    }
     public static void heapify(int[] arr, int n, int i) {
 
         while (true) {
@@ -62,34 +78,6 @@ public class HeapSortIterative {
         }
     }
 
-    public static int[] generateArray(int n) {
 
-        Random rand = new Random();
 
-        int[] arr = new int[n];
-
-        for (int i = 0; i < n; i++) {
-            arr[i] = rand.nextInt(100000);
-        }
-
-        return arr;
-    }
-
-    public static void main(String[] args) {
-
-        int size = 100000;
-
-        int[] arr = generateArray(size);
-
-        long start = System.nanoTime();
-
-        heapSort(arr);
-
-        long end = System.nanoTime();
-
-        System.out.println("Iterative Heap Sort");
-        System.out.println("Time: " + (end - start) / 1e6 + " ms");
-        System.out.println("Comparisons: " + C);
-        System.out.println("Moves: " + M);
-    }
 }
