@@ -1,6 +1,5 @@
 package Piramidalnya;
 
-import java.util.Arrays;
 import java.util.Random;
 
 public class HeapSortRecursive {
@@ -78,17 +77,6 @@ public class HeapSortRecursive {
         }
     }
 
-    public static int[] generateArray(int n) {
 
-        Random rand = new Random();
-
-        int[] arr = new int[n];
-
-        for (int i = 0; i < n; i++) {
-            arr[i] = rand.nextInt(100000);
-        }
-
-        return arr;
-    }
 
 }
